@@ -13,14 +13,9 @@ Available endpoints:
 
 Avaiable sources are:
 
-* Bullet list
-    * Nested bullet
-        * Sub-nested bullet etc
-* Bullet list item 2
-
-	* Hacker;
-	* NyTimes;
-	* Bbc.
+* Hacker;
+* NyTimes;
+* Bbc.
 	 
 #### /save ####
 
