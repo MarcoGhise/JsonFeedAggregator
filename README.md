@@ -19,11 +19,15 @@ Avaiable sources are:
 	 
 #### http://localhost:8080/save ####
 
-`GET` Store the news feed into MongoDb.
+`GET` Store the news into MongoDb.
 
 #### http://localhost:8080/list ####
 
-`GET` Retrieve the news feed from MongoDb.
+`GET` Retrieve all the news from MongoDb.
+
+#### http://localhost:8080/list/{word} ####
+
+`GET` Retrieve the news filtered by {word} from MongoDb.
 
 #### Compile and Running the application ####
 Compile: mvn clean install
