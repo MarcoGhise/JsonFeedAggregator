@@ -10,7 +10,14 @@ Available endpoints:
 #### /news/{source} ####
 
 `GET` Return all the news from the remote resources filtered by `{source}`.
+
 Avaiable sources are:
+
+* Bullet list
+    * Nested bullet
+        * Sub-nested bullet etc
+* Bullet list item 2
+
 	* Hacker;
 	* NyTimes;
 	* Bbc.
