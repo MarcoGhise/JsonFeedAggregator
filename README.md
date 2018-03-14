@@ -27,4 +27,5 @@ Avaiable sources are:
 
 #### Compile and Running the application ####
 Compile: mvn clean install
+
 Running: java -jar feednews-0.0.1-SNAPSHOT.jar
