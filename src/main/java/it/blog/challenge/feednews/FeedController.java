@@ -131,7 +131,7 @@ public class FeedController {
 	public List<Feed> listByWord(@PathVariable String word) {
 
 		try {
-			
+			 
 			/*
 			 * Get data filtered
 			 */			
