@@ -33,3 +33,11 @@ Avaiable sources are:
 Compile: mvn clean install
 
 Running: java -jar feednews-0.0.1-SNAPSHOT.jar
+
+#### Docker Container ####
+
+##### Deploy #####
+docker build --file .\dockerfile\Dockerfile . --tag=jsonfeedaggregator:1.1
+
+##### Run #####
+docker run --name=jsonfeedaggregator --publish=8080:8080 jsonfeedaggregator:1.1
