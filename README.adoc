@@ -4,15 +4,6 @@ Developed using Jdk 1.8, Spring Boot and embedded MongoDb.
 
 Available endpoints:
 
-Endpoint  | Second Header
-------------- | -------------
-/news  | `GET` Return all the news from the remote resources.
-/news/{source}  | `GET` Return all the news from the remote resources filtered by `{source}`.
-Avaiable sources are:
-* Hacker;
-* NyTimes;
-* Bbc.
-
 [/news]
 ====
 `GET` Return all the news from the remote resources.
