@@ -25,3 +25,8 @@ Avaiable sources are:
 ====
 `GET` Retrieve the news feed from MongoDb.
 ==== 
+
+[NOTE]
+====
+For now you must also set the `eureka.instance.*` properties shown here so that the "hello world" service's URL will be correct in the Eureka registration. This requirement should go away in future versions of the Spring Cloud Pivotal connector.
+====
