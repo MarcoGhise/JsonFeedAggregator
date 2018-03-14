@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -110,6 +112,35 @@ public class FeedController {
 			 */
 			List<Feed> feed = mongoTemplate.findAll(Feed.class, "feed");
 
+			/*
+			 * Sorted Collection
+			 */
+			List<Feed> sortedFeed = feed.stream().sorted().collect(Collectors.toList());
+
+			return sortedFeed;
+		} catch (Exception e) {
+			return new ArrayList<Feed>() {
+				{
+					add(new GeneralError(e.getMessage()));
+				}
+			};
+		}
+	}
+	
+	@RequestMapping("/list/{word}")
+	public List<Feed> listByWord(@PathVariable String word) {
+
+		try {
+			
+			/*
+			 * Get data filtered
+			 */			
+			Query query = new Query();
+			query.addCriteria(Criteria.where("title").regex(word));
+
+			List<Feed> feed = mongoTemplate.find(
+					query, Feed.class);
+			
 			/*
 			 * Sorted Collection
 			 */
