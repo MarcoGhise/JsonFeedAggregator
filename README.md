@@ -1,3 +1,8 @@
+### UPDATE ###
+
+I updated the code with Async calling for HackerNews details. 
+Thanks to [Raffaele Camanzo](https://github.com/raffaelecamanzo) for provinding me this suggestion. 
+
 #### Json Feed Aggregator ####
 
 Developed using Jdk 1.8, Spring Boot and embedded MongoDb. 
