@@ -15,7 +15,6 @@ public class FeednewsApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(FeednewsApplication.class, args);
 	}
-	
 	@Bean
     public Executor asyncExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();

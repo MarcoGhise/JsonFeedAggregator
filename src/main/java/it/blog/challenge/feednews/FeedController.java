@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import it.blog.challenge.feednews.bean.Feed;
 import it.blog.challenge.feednews.bean.GeneralError;
 import it.blog.challenge.feednews.bean.OperationSuccess;
-import it.blog.challenge.feednews.ingestion.FeedIngestion;
+import it.blog.challenge.feednews.ingestion.Ingestion;
 
 @RestController
 public class FeedController {
@@ -27,7 +28,7 @@ public class FeedController {
 	MongoTemplate mongoTemplate;
 
 	@Autowired
-	FeedIngestion ingestion;
+	Ingestion ingestion;
 	
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
