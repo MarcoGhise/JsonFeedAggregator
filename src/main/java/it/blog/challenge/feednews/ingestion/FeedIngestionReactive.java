@@ -147,7 +147,7 @@ public class FeedIngestionReactive implements Ingestion {
 	 */
 	@Override
 	public List<Feed> ingestionFeeds() throws InterruptedException, ExecutionException {
-		    
+		     
 		log.debug("Start Feed ingestion...");
 		/*
 		 * Get news 
