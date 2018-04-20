@@ -12,17 +12,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import it.blog.challenge.feednews.bean.Feed;
 import it.blog.challenge.feednews.bean.bbc.BbcNews;
 import it.blog.challenge.feednews.bean.hackernews.Hacker;
 import it.blog.challenge.feednews.bean.hackernews.HackerList;
 import it.blog.challenge.feednews.bean.nytimes.Nytimes;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Component
-public class FeedIngestion {
+@Profile("Async")
+public class FeedIngestionAsync implements Ingestion {
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
@@ -46,19 +51,33 @@ public class FeedIngestion {
 	
 	@Autowired
 	AsyncNews asyncNews;
+	
+	@Autowired
+	WebClient client;
 
+	/* (non-Javadoc)
+	 * @see it.blog.challenge.feednews.ingestion.Ingestion#restTemplate(org.springframework.boot.web.client.RestTemplateBuilder)
+	 */
+	@Override
 	@Bean
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
 		return builder.build();
 	}
-
-	/**
-	 * 
-	 * News From Hacker parallely
-	 * 
-	 * @return
-	 * @throws Exception
+	
+	/* (non-Javadoc)
+	 * @see it.blog.challenge.feednews.ingestion.Ingestion#webClient(org.springframework.boot.web.client.RestTemplateBuilder)
 	 */
+	@Override
+	@Bean
+	public WebClient webClient(RestTemplateBuilder builder) {
+		return WebClient.create();
+	}
+
+	
+	/* (non-Javadoc)
+	 * @see it.blog.challenge.feednews.ingestion.Ingestion#getNewsFromHacker()
+	 */
+	@Override
 	public HackerList getNewsFromHacker() throws InterruptedException, ExecutionException {
 
 		log.debug("Start getting news from NewsHacker...");
@@ -103,12 +122,18 @@ public class FeedIngestion {
 		return hackerList;
 	}
 
-	/**
-	 * 
-	 * News From Ny Times
-	 * 
-	 * @return
+	private Mono<Hacker> fetch(String item) {
+		
+		String url = String.format(hackerDetailUrl, item);
+		
+		return this.client.get().uri(url).retrieve().bodyToMono(Hacker.class);
+				
+	}
+	
+	/* (non-Javadoc)
+	 * @see it.blog.challenge.feednews.ingestion.Ingestion#getNewsFromNyTimes()
 	 */
+	@Override
 	public Nytimes getNewsFromNyTimes() {
 
 		log.debug("Start getting news from Nyt...");
@@ -121,12 +146,10 @@ public class FeedIngestion {
 
 	}
 
-	/**
-	 * 
-	 * News From Bbc
-	 * 
-	 * @return
+	/* (non-Javadoc)
+	 * @see it.blog.challenge.feednews.ingestion.Ingestion#getNewsBbc()
 	 */
+	@Override
 	public BbcNews getNewsBbc() {
 
 		log.debug("Start getting news from Bbc...");
@@ -139,6 +162,10 @@ public class FeedIngestion {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see it.blog.challenge.feednews.ingestion.Ingestion#ingestionFeeds()
+	 */
+	@Override
 	public List<Feed> ingestionFeeds() throws InterruptedException, ExecutionException {
 		
 		log.debug("Start Feed ingestion...");
@@ -147,7 +174,7 @@ public class FeedIngestion {
 		 */
 		HackerList hackerList = this.getNewsFromHacker();
 		log.debug("Got Hackernews...");
-		
+
 		Nytimes nytimes = this.getNewsFromNyTimes();
 		log.debug("Got Nyt...");
 		
