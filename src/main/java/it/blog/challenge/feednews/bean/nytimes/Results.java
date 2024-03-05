@@ -41,7 +41,8 @@ public class Results extends Feed
      */
     public void setPublished_date (String published_date) throws ParseException
     {
-    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
+    	//SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
 		Date d = sdf.parse(published_date);
 		
